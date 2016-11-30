@@ -8,8 +8,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import models.Documents;
+import views.Main;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,21 +28,36 @@ public class MainController implements Initializable {
     @FXML
     private Button btnCreateNewDoc;
     private Stage stage;
+    @FXML
+    private TableColumn<Documents,String> columnDocs;
+    @FXML
+    private TableColumn<Documents,String> columnDatesDocs;
+    @FXML
+    private TableView<Documents> docsView;
+
+
+    private Main main = null;
 
     public void setupStage(Stage stage) {
         this.stage = stage;
     }
 
     public void initialize(URL location, ResourceBundle resources) {
-       if (btnCreateNewDoc == null) System.out.println("fx:id=\"myButton\" was not injected: check your FXML file 'simple.fxml'.");
+        columnDocs.setCellValueFactory(cellData->cellData.getValue().getNomController());
+        columnDatesDocs.setCellValueFactory(cellDate->cellDate.getValue().getDateCreationController());
+        if (btnCreateNewDoc == null) System.out.println("fx:id=\"myButton\" was not injected: check your FXML file 'simple.fxml'.");
 
         btnCreateNewDoc.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/create_docs.fxml"));
                     Parent pageCreateDoc =  loader.load();
-                    CreateDocController createDocController = loader.getController();
-                    createDocController.setupStage(stage);
+                    if(main != null ){
+                        main.getControlGroup().setLoader(loader);
+                        main.getControlGroup().setStage(stage);
+                        main.getControlGroup().setStageCreateDocController();
+                        main.getControlGroup().getCreateDocController().setMain(main);
+                    }
                     stage.setScene(new Scene(pageCreateDoc, 800, 500));
                     stage.show();
                 } catch (IOException e) {
@@ -50,5 +68,8 @@ public class MainController implements Initializable {
         });
     }
 
-
+    public void setMain(Main main) {
+        this.main = main;
+        docsView.setItems(main.getDocumentsList());
+    }
 }

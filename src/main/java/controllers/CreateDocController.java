@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import views.Main;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,6 +24,7 @@ public class CreateDocController implements Initializable {
     @FXML
     private Button btn_MenuPrincpal;
     private Stage stage;
+    private Main main=null;
 
     public void setupStage(Stage stage) {
         this.stage = stage;
@@ -37,8 +39,12 @@ public class CreateDocController implements Initializable {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/main_view.fxml"));
                     Parent pageCreateDoc = loader.load();
-                    MainController mainController = loader.getController();
-                    mainController.setupStage(stage);
+                    if(main != null){
+                        main.getControlGroup().setLoader(loader);
+                        main.getControlGroup().setStage(stage);
+                        main.getControlGroup().setStageMainController();
+                        main.getControlGroup().getMainController().setMain(main);
+                    }
                     stage.setScene(new Scene(pageCreateDoc, 800, 500));
                     stage.show();
                 } catch (IOException e) {
@@ -47,5 +53,9 @@ public class CreateDocController implements Initializable {
 
             }
         });
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
     }
 }
