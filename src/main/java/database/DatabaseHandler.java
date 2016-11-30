@@ -14,20 +14,28 @@ public class DatabaseHandler {
     private static Connection instance;
 
     private DatabaseHandler() {
-        try {
-            Class.forName("org.sqlite.JDBC");
-            instance = DriverManager.getConnection(PATH_DATABASE);
-            createDatabase();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if(new File("db/docomat.db").exists()){
+            connection();
+            return;
         }
+        connection();
+        createDatabase();
     }
 
     public static synchronized Connection getInstance() {
         if(instance == null) new DatabaseHandler();
         return instance;
+    }
+
+    private void connection(){
+        try {
+            Class.forName("org.sqlite.JDBC");
+            instance = DriverManager.getConnection(PATH_DATABASE);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createDatabase() {

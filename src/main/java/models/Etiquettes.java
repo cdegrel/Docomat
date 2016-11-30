@@ -29,4 +29,8 @@ public class Etiquettes {
     public String getNom_etiquette() {
         return nom_etiquette;
     }
+
+    public String toString(){
+        return "id_etiquettes : "+id_etiquette+"\nnom_etiquette"+nom_etiquette;
+    }
 }

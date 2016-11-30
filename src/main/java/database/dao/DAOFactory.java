@@ -1,15 +1,16 @@
 package database.dao;
 
-import models.Categories;
-import models.Etiquettes;
-
 public class DAOFactory {
 
-    public static DAO<Categories> getCategoriesDAO(){
+    public static CategoriesDAO getCategoriesDAO(){
         return new CategoriesDAO();
     }
 
-    public static DAO<Etiquettes> getEtiquettesDAO(){
+    public static EtiquettesDAO getEtiquettesDAO(){
         return new EtiquettesDAO();
     }
+
+    public static TextesDAO getTextesDAO(){ return new TextesDAO(); }
+
+    public static DocumentsDAO getDocumentsDAO(){ return new DocumentsDAO(); }
 }

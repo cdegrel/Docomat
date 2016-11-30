@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="594.0" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreateDocController">
+   <children>
+      <Label alignment="CENTER" layoutX="102.0" layoutY="14.0" prefHeight="39.0" prefWidth="454.0" text="Création d'un nouveau document" textAlignment="CENTER" underline="true" wrapText="true">
+         <font>
+            <Font name="Abraham Lincoln" size="32.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+      <Button fx:id="btn_MenuPrincpal" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" text="Menu Principal" />
+   </children>
+</AnchorPane>
