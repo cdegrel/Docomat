@@ -21,10 +21,26 @@ public class Documents {
         this.id_document = new SimpleIntegerProperty(id_document);
         this.nom = new SimpleStringProperty(nom);
         dateCreation = new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+        sous_titre = new SimpleStringProperty("");
+        dateModif = new SimpleStringProperty("");
+    }
+
+    public Documents(int id_document, String nom, String sous_titre, String dateCreation, String dateModif) {
+        this.id_document = new SimpleIntegerProperty(id_document);
+        this.nom = new SimpleStringProperty(nom);
+        this.sous_titre = new SimpleStringProperty(sous_titre);
+        this.dateCreation = new SimpleStringProperty(dateCreation);
+        this.dateModif = new SimpleStringProperty(dateModif);
     }
 
     public Documents() {
         dateCreation = new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+        this.id_document = new SimpleIntegerProperty(0);
+        this.nom = new SimpleStringProperty("");
+        dateCreation = new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+        sous_titre = new SimpleStringProperty("");
+        dateModif = new SimpleStringProperty("");
+
     }
 
     public int getId_document() {
@@ -55,6 +71,18 @@ public class Documents {
 
     public String getDateModif() {
         return dateModif.get();
+    }
+
+    public void setSous_titre(String sous_titre) {
+        this.sous_titre.set(sous_titre);
+    }
+
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation.set(dateCreation);
+    }
+
+    public void setDateModif(String dateModif) {
+        this.dateModif.set(dateModif);
     }
 
     public String toString() {

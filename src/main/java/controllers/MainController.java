@@ -31,8 +31,6 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Documents,String> columnDocs;
     @FXML
-    private TableColumn<Documents,String> columnDatesDocs;
-    @FXML
     private TableView<Documents> docsView;
 
 
@@ -44,7 +42,6 @@ public class MainController implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         columnDocs.setCellValueFactory(cellData->cellData.getValue().getNomController());
-        columnDatesDocs.setCellValueFactory(cellDate->cellDate.getValue().getDateCreationController());
         if (btnCreateNewDoc == null) System.out.println("fx:id=\"myButton\" was not injected: check your FXML file 'simple.fxml'.");
 
         btnCreateNewDoc.setOnAction(new EventHandler<ActionEvent>() {

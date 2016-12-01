@@ -36,7 +36,8 @@ public class DocumentsDAO implements DAO<Documents> {
             ps.setString(1,obj.getNom());
             ps.setString(2,obj.getSous_titre());
             ps.setString(3,obj.getDateCreation());
-            ps.setString(4,obj.getDateModif());
+            if (obj.getDateModif().isEmpty()) ps.setString(4,obj.getDateCreation());
+            else ps.setString(4,obj.getDateModif());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -100,13 +101,32 @@ public class DocumentsDAO implements DAO<Documents> {
         try {
             ps = conn.prepareStatement(SQL_READALL);
             res = ps.executeQuery();
-            while (res.next()) documentsList.add(new Documents(res.getInt(1),res.getString(2)));
+            while (res.next()) documentsList.add(new Documents(res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5)));
 
             ps.executeQuery();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        return documentsList;
+    }
+
+    public List<Documents> readDocsByDateModif() {
+        PreparedStatement ps = null;
+        ResultSet res;
+        List<Documents> documentsList = new ArrayList<>();
+
+        try {
+            ps = conn.prepareStatement("SELECT id_document,nom_document,date_modif FROM Documents WHERE date_modif NOT LIKE date_creation ORDER BY date_modif DESC");
+            res = ps.executeQuery();
+            while (res.next()) {
+                Documents docs = new Documents(res.getInt(1),res.getString(2));
+                docs.setDateModif(res.getString(3));
+                documentsList.add(docs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return documentsList;
     }
 }
