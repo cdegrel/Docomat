@@ -15,7 +15,11 @@ import java.util.Date;
 public class Documents {
 
     private IntegerProperty id_document;
-    private StringProperty nom,sous_titre,dateCreation,dateModif;
+    private StringProperty nom,sous_titre,dateCreation,dateModif,contenu;
+
+    public Documents(String nom){
+        this.nom = new SimpleStringProperty(nom);
+    }
 
     public Documents(int id_document, String nom) {
         this.id_document = new SimpleIntegerProperty(id_document);
@@ -23,6 +27,7 @@ public class Documents {
         dateCreation = new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
         sous_titre = new SimpleStringProperty("");
         dateModif = new SimpleStringProperty("");
+        contenu = new SimpleStringProperty("");
     }
 
     public Documents(int id_document, String nom, String sous_titre, String dateCreation, String dateModif) {
@@ -31,16 +36,17 @@ public class Documents {
         this.sous_titre = new SimpleStringProperty(sous_titre);
         this.dateCreation = new SimpleStringProperty(dateCreation);
         this.dateModif = new SimpleStringProperty(dateModif);
+        contenu = new SimpleStringProperty("");
     }
 
     public Documents() {
         dateCreation = new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-        this.id_document = new SimpleIntegerProperty(0);
-        this.nom = new SimpleStringProperty("");
+        id_document = new SimpleIntegerProperty(0);
+        nom = new SimpleStringProperty("");
         dateCreation = new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
         sous_titre = new SimpleStringProperty("");
         dateModif = new SimpleStringProperty("");
-
+        contenu = new SimpleStringProperty("");
     }
 
     public int getId_document() {
@@ -63,26 +69,30 @@ public class Documents {
     public String getSous_titre() {
         return sous_titre.get();
     }
-
-    public String getDateCreation() {
-        return dateCreation.get();
-    }
-    public StringProperty getDateCreationController() {return dateCreation;}
-
-    public String getDateModif() {
-        return dateModif.get();
-    }
-
     public void setSous_titre(String sous_titre) {
         this.sous_titre.set(sous_titre);
     }
 
+    public String getDateCreation() {
+        return dateCreation.get();
+    }
     public void setDateCreation(String dateCreation) {
         this.dateCreation.set(dateCreation);
     }
 
+    public String getDateModif() {
+        return dateModif.get();
+    }
     public void setDateModif(String dateModif) {
         this.dateModif.set(dateModif);
+    }
+
+    public String getContenu() {
+        return contenu.get();
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu.set(contenu);
     }
 
     public String toString() {

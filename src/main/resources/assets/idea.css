@@ -1,0 +1,15 @@
+.split-pane:horizontal > .split-pane-divider {
+    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
+    -fx-background-color: transparent, derive(#1d1d1d,20%);
+}
+
+.tests:hover{
+	-fx-text-fill: orange;
+}
+
+
+/*rgb(187,187,187);
+rgb(69,71,74)
+rgb(60,63,65);
+rgb(77,77,77);
+rgb(46,64,88)*/

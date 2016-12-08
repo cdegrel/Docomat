@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #333;" stylesheets="/assets/idea.css" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.WelcomeController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <ListView fx:id="listView" layoutX="46.0" layoutY="40.0" prefHeight="398.0" prefWidth="175.0" style="-fx-background-color: rgb(77,77,77);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: rgb(77,77,77);">
+         <children>
+            <Label layoutX="136.0" layoutY="101.0" style="-fx-text-fill: #fff;" text="DOCOMAT">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="150.0" layoutY="146.0" style="-fx-text-fill: rgb(187,187,187);" text="Version 2016.1">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="btn_create_doc" layoutX="127.0" layoutY="244.0" mnemonicParsing="false" onAction="#showNewDoc" style="-fx-background-color: none; -fx-text-fill: #fff;" styleClass="test" text="Créer nouveau document">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="/img/etoile.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="btn_open_doc" layoutX="127.0" layoutY="289.0" mnemonicParsing="false" onAction="#showOpenDoc" style="-fx-background-color: none; -fx-text-fill: #fff;" styleClass="test" text="Ouvrir document" AnchorPane.leftAnchor="127.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="/img/folder.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ImageView fitHeight="86.0" fitWidth="89.0" layoutX="164.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="/img/logo-welcome.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="btn_create_txt" onAction="#showNewTxt" layoutX="148.0" layoutY="210.0" mnemonicParsing="false" text="Créer nouveau texte" />
+         </children>
+      </AnchorPane>
+  </items>
+</SplitPane>

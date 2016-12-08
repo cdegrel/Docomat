@@ -33,7 +33,8 @@ CREATE TABLE Documents(
   nom_document TEXT UNIQUE,
   sous_titre TEXT,
   date_creation TEXT,
-  date_modif TEXT
+  date_modif TEXT,
+  contenu TEXT
 );
 
 DROP TABLE IF EXISTS Document_Textes;

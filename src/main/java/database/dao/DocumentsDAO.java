@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DocumentsDAO implements DAO<Documents> {
 
-    private static final String SQL_INSERT = "INSERT INTO Documents VALUES(null,?,?,?,?)";
+    private static final String SQL_INSERT = "INSERT INTO Documents VALUES(null,?,?,?,?,?)";
     private static final String SQL_DELETE = "DELETE FROM Documents WHERE id_Document = ?";
     private static final String SQL_UPDATE = "UPDATE Documents SET nom_document = ?,sous_titre = ?,date_modif = ? WHERE id_Document = ?";
     private static final String SQL_READ = "SELECT * FROM Documents WHERE id_Document = ?";
@@ -38,6 +38,7 @@ public class DocumentsDAO implements DAO<Documents> {
             ps.setString(3,obj.getDateCreation());
             if (obj.getDateModif().isEmpty()) ps.setString(4,obj.getDateCreation());
             else ps.setString(4,obj.getDateModif());
+            ps.setString(5,obj.getContenu());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
