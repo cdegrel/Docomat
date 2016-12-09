@@ -1,9 +1,11 @@
 package controllers;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.ContextMenuEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Categories;
 import views.Main2;
@@ -11,6 +13,7 @@ import views.Main2;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CreateTxtController implements Initializable {
@@ -53,20 +56,85 @@ public class CreateTxtController implements Initializable {
                 }
             }
         }
+        treeView.setEditable(true);
+        treeView.setCellFactory(tree -> {
+            TreeCell<String> cell = new TreeCell<String>() {
+                @Override
+                public void updateItem(String item,boolean empty) {
+                    super.updateItem(item,empty);
+                    if (empty) {
+                        setText(null);
+                    }
+                    else {
+                        setText(item);
+                        setContextMenu(contextMenu(getTreeItem(),rootItem));
+                    }
+                }
+            };
+            return cell;
+        });
 
         treeView.setRoot(rootItem);
-        ContextMenu contextMenu = contextMenu();
-        if (nodeCat != null) {
-
-        }
     }
 
-    public ContextMenu contextMenu() {
+    public ContextMenu contextMenu(TreeItem<String> treeItem,TreeItem<String> root) {
+        MenuItem createCat;
+        String titleCat,contentCat;
         ContextMenu contextMenu = new ContextMenu();
-        MenuItem createCat = new MenuItem("Créer une catégorie");
+        if (treeItem == root) {
+            createCat = new MenuItem("Créer une catégorie");
+            titleCat = "Création d'une nouvelle catégorie";
+            contentCat = "Veuillez entrer le nom de la catégorie";
+        }
+        else {
+            createCat = new MenuItem("Ajouter une sous-catégorie");
+            titleCat = "Création d'une nouvelle sous-catégorie";
+            contentCat = "Veuillez entrer le nom de la sous-catégorie";
+        }
         MenuItem createTxt = new MenuItem("Créer un nouveau texte");
         MenuItem delCat = new MenuItem("Supprimer cette catégorie");
         contextMenu.getItems().addAll(createCat,createTxt,delCat);
+        final String finalTitlecat = titleCat,finalContentcat=contentCat;
+        createCat.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                TextInputDialog dialog = new TextInputDialog("Nouvelle catégorie");
+                dialog.setTitle(finalTitlecat);
+                dialog.setHeaderText(null);
+                dialog.setContentText(contentCat);
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                Optional<String> result = dialog.showAndWait();
+                int catIdParent = 0;
+                if (result.isPresent()) {
+                    for (Categories cat : main.getCategoriesList()) {
+                        if (cat.getLibelle_categorie().equals(treeItem.getValue())) {
+                            catIdParent = cat.getId_categorie();
+                        }
+                    }
+                    Categories categories = new Categories(result.get(),catIdParent);
+                    main.getDaoGroup().getCategoriesDAO().insert(categories);
+                    main.getCategoriesList().removeAll(main.getCategoriesList());
+                    main.getCategoriesList().addAll(main.getDaoGroup().getCategoriesDAO().readAll());
+                    treeItem.getChildren().add(new TreeItem<>(result.get()));
+                }
+            }
+        });
+        delCat.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Categories catDel = null;
+                for (Categories cat : main.getCategoriesList()) {
+                    if (cat.getLibelle_categorie().equals(treeItem.getValue())) {
+                        catDel = cat;
+                    }
+                }
+                if (catDel == null) return;
+                main.getDaoGroup().getCategoriesDAO().delete(catDel.getId_categorie());
+                main.getDaoGroup().getCategoriesDAO().deleteChildren(catDel.getId_categorie());
+                main.getCategoriesList().remove(catDel);
+                treeItem.getParent().getChildren().remove(treeItem);
+            }
+        });
         return contextMenu;
     }
 

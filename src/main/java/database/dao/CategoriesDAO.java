@@ -14,6 +14,7 @@ public class CategoriesDAO implements DAO<Categories> {
 
     private static final String SQL_INSERT = "INSERT INTO Categories VALUES(null, ?, ?)";
     private static final String SQL_DELETE = "DELETE FROM Categories WHERE id_categorie = ?";
+    private static final String SQL_DELETEChildren = "DELETE FROM Categories WHERE id_cat_parent = ?";
     private static final String SQL_UPDATE = "UPDATE Categories SET libelle_categorie = ?, id_cat_parent = ? WHERE id_categorie = ?";
     private static final String SQL_READ = "SELECT * FROM Categories WHERE id_categorie = ?";
     private static final String SQL_READALL = "SELECT * FROM Categories";
@@ -57,18 +58,19 @@ public class CategoriesDAO implements DAO<Categories> {
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        }/*finally {
-            try {
-                if(ps != null) ps.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try{
-                if(!conn.isClosed()) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }*/
+        }
+    }
+
+    public void deleteChildren(Object key) {
+        PreparedStatement ps = null;
+
+        try{
+            ps = conn.prepareStatement(SQL_DELETEChildren);
+            ps.setInt(1, Integer.parseInt(key.toString()));
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void update(Categories obj) {
