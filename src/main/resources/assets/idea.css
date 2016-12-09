@@ -2,11 +2,38 @@
     -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
     -fx-background-color: transparent, derive(#1d1d1d,20%);
 }
-
-.tests:hover{
-	-fx-text-fill: orange;
+.menu-bar {
+	-fx-background-color: rgb(60,63,65);
+	-fx-border-color: rgb(40,40,40);
 }
-
+.menu-bar .label{
+	-fx-text-fill: #fff;
+	-fx-font-size: 14px;
+}
+.context-menu{
+	-fx-background-color: rgb(60,63,65);
+	-fx-border-color: rgb(81,81,81);
+}
+.context-menu .label{
+	-fx-text-fill: #fff;
+}
+.tool-bar{
+	-fx-background-color: rgb(60,63,65);
+	-fx-border-color: rgb(81,81,81);
+}
+.html-editor{
+	-fx-background-color: rgb(43,43,43);
+	-fx-control-inner-background: rgb(43,43,43);
+}
+.html-editor .button, .html-editor .toggle-button, .html-editor-background, .html-editor-foreground{
+	-fx-background-color: inherit;
+}
+.tab{
+	-fx-background-color: rgb(60,63,65);
+}
+.tab:selected{
+	-fx-background-color: rgb(121,121,121);
+}
 
 /*rgb(187,187,187);
 rgb(69,71,74)
