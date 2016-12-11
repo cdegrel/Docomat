@@ -8,10 +8,8 @@ import javafx.stage.Stage;
  */
 public class ControlGroup {
 
-
-    private CreateDocController createDocController;
     private WelcomeController welcomeController;
-    private CreateTxtController createTxtController;
+    private DocomatController docomatController;
     private FXMLLoader loader;
     private Stage stage;
 
@@ -20,33 +18,22 @@ public class ControlGroup {
         this.stage = stage;
     }
 
-
-    public void setStageCreateDocController(){
-        createDocController = loader.getController();
-        createDocController.setupStage(stage);
-    }
-
     public void setStageWelcomeController() {
         welcomeController = loader.getController();
         welcomeController.setupStage(stage);
     }
 
-    public void setStageCreateTxtController() {
-        createTxtController = loader.getController();
-        createTxtController.setupStage(stage);
-    }
-
-
-    public CreateDocController getCreateDocController() {
-        return createDocController;
+    public void setDocomatController(){
+        docomatController = loader.getController();
+        docomatController.setupStage(stage);
     }
 
     public WelcomeController getWelcomeController() {
         return welcomeController;
     }
 
-    public CreateTxtController getCreateTxtController() {
-        return createTxtController;
+    public DocomatController getDocomatController() {
+        return docomatController;
     }
 
     public void setLoader(FXMLLoader loader) {

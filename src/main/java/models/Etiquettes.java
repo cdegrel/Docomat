@@ -31,6 +31,6 @@ public class Etiquettes {
     }
 
     public String toString(){
-        return "id_etiquettes : "+id_etiquette+"\nnom_etiquette"+nom_etiquette;
+        return "id_etiquettes : "+id_etiquette+"\tnom_etiquette :"+nom_etiquette+"\n";
     }
 }

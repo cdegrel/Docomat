@@ -15,7 +15,7 @@ import java.util.Date;
 public class Documents {
 
     private IntegerProperty id_document;
-    private StringProperty nom,sous_titre,dateCreation,dateModif,contenu;
+    private StringProperty nom,dateCreation,dateModif;
 
     public Documents(String nom){
         this.nom = new SimpleStringProperty(nom);
@@ -25,18 +25,14 @@ public class Documents {
         this.id_document = new SimpleIntegerProperty(id_document);
         this.nom = new SimpleStringProperty(nom);
         dateCreation = new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-        sous_titre = new SimpleStringProperty("");
         dateModif = new SimpleStringProperty("");
-        contenu = new SimpleStringProperty("");
     }
 
-    public Documents(int id_document, String nom, String sous_titre, String dateCreation, String dateModif) {
+    public Documents(int id_document, String nom,String dateCreation, String dateModif) {
         this.id_document = new SimpleIntegerProperty(id_document);
         this.nom = new SimpleStringProperty(nom);
-        this.sous_titre = new SimpleStringProperty(sous_titre);
         this.dateCreation = new SimpleStringProperty(dateCreation);
         this.dateModif = new SimpleStringProperty(dateModif);
-        contenu = new SimpleStringProperty("");
     }
 
     public Documents() {
@@ -44,9 +40,7 @@ public class Documents {
         id_document = new SimpleIntegerProperty(0);
         nom = new SimpleStringProperty("");
         dateCreation = new SimpleStringProperty(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
-        sous_titre = new SimpleStringProperty("");
         dateModif = new SimpleStringProperty("");
-        contenu = new SimpleStringProperty("");
     }
 
     public int getId_document() {
@@ -66,13 +60,6 @@ public class Documents {
         this.nom.set(nom);
     }
 
-    public String getSous_titre() {
-        return sous_titre.get();
-    }
-    public void setSous_titre(String sous_titre) {
-        this.sous_titre.set(sous_titre);
-    }
-
     public String getDateCreation() {
         return dateCreation.get();
     }
@@ -87,15 +74,7 @@ public class Documents {
         this.dateModif.set(dateModif);
     }
 
-    public String getContenu() {
-        return contenu.get();
-    }
-
-    public void setContenu(String contenu) {
-        this.contenu.set(contenu);
-    }
-
     public String toString() {
-        return "id_document : "+id_document.get()+"\nnom : "+nom.get()+"\nsous-titre : "+sous_titre.get()+"\ndate de Création : "+dateCreation.get()+"\ndernière date de modification : "+dateModif.get();
+        return "id_document : "+id_document.get()+"\nnom : "+nom.get()+"\ndate de Création : "+dateCreation.get()+"\ndernière date de modification : "+dateModif.get();
     }
 }

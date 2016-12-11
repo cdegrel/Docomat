@@ -4,7 +4,6 @@ import database.DatabaseHandler;
 import models.Documents;
 import models.Textes;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +16,7 @@ public class TextesDAO implements DAO<Textes> {
 
     private static final String SQL_INSERT = "INSERT INTO Textes VALUES(null,?,?,?)";
     private static final String SQL_DELETE = "DELETE FROM Textes WHERE id_texte = ?";
-    private static final String SQL_UPDATE = "UPDATE Textes SET id_categorie = ?,contenu = ? WHERE id_texte = ?";
+    private static final String SQL_UPDATE = "UPDATE Textes SET nom_texte = ?, id_categorie = ?,contenu = ? WHERE id_texte = ?";
     private static final String SQL_READ = "SELECT * FROM Textes WHERE id_texte = ?";
     private static final String SQL_READALL = "SELECT * FROM Textes";
 
@@ -38,8 +37,8 @@ public class TextesDAO implements DAO<Textes> {
 
         try {
             ps = conn.prepareStatement(SQL_INSERT);
-            ps.setInt(1,obj.getId_categorie());
-            ps.setString(2,obj.getNom());
+            ps.setString(1,obj.getNom());
+            ps.setInt(2,obj.getId_categorie());
             ps.setString(3,obj.getContenu());
             ps.executeUpdate();
             ps.close();
@@ -76,7 +75,7 @@ public class TextesDAO implements DAO<Textes> {
         }
     }
 
-    public void deleteDocumentTextes(Documents documents,Textes textes) {
+    public void deleteDocumentTextes(Documents documents, Textes textes) {
         PreparedStatement ps = null;
 
         try {
@@ -95,9 +94,10 @@ public class TextesDAO implements DAO<Textes> {
 
         try {
             ps = conn.prepareStatement(SQL_UPDATE);
-            ps.setInt(1,obj.getId_categorie());
-            ps.setString(2,obj.getNom());
+            ps.setString(1,obj.getNom());
+            ps.setInt(2,obj.getId_categorie());
             ps.setString(3,obj.getContenu());
+            ps.setInt(4,obj.getId_texte());
             ps.executeUpdate();
             ps.close();
         } catch (SQLException e) {

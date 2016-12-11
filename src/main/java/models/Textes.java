@@ -15,7 +15,7 @@ public class Textes {
         this.contenu = contenu;
     }
 
-    public Textes(int id_categorie,String nom, String contenu) {
+    public Textes(String nom,int id_categorie, String contenu) {
         this.id_categorie = id_categorie;
         this.nom = nom;
         this.contenu = contenu;
@@ -53,5 +53,5 @@ public class Textes {
         this.contenu = contenu;
     }
 
-    public String toString() {return "id_texte : "+id_texte+"\nid_catégorie : "+id_categorie+"\ncontenu : "+contenu;}
+    public String toString() {return "id_texte : "+id_texte+"\nid_catégorie : "+id_categorie+"\nnom : "+nom+"\ncontenu : "+contenu+"\n";}
 }

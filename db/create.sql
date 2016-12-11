@@ -13,9 +13,9 @@ CREATE TABLE Etiquettes(
 
 DROP TABLE IF EXISTS Etiquettes_Textes;
 CREATE TABLE Etiquettes_Textes(
+  id_etiquette_texte INTEGER PRIMARY KEY,
   id_etiquette INTEGER,
-  id_texte INTEGER,
-  PRIMARY KEY(id_etiquette, id_texte)
+  id_texte INTEGER
 );
 
 DROP TABLE IF EXISTS Textes;
@@ -31,16 +31,7 @@ DROP TABLE IF EXISTS Documents;
 CREATE TABLE Documents(
   id_document INTEGER PRIMARY KEY,
   nom_document TEXT UNIQUE,
-  sous_titre TEXT,
   date_creation TEXT,
-  date_modif TEXT,
-  contenu TEXT
-);
-
-DROP TABLE IF EXISTS Document_Textes;
-CREATE TABLE Document_Textes(
-  id_document INTEGER,
-  id_texte INTEGER,
-  PRIMARY KEY(id_document,id_texte)
+  date_modif TEXT
 );
 

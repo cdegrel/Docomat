@@ -9,9 +9,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import launch.Docomat;
 import models.Documents;
-import views.Main2;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,8 +20,9 @@ import java.util.ResourceBundle;
 
 public class WelcomeController implements Initializable {
 
+    private String path;
     private Stage stage;
-    private Main2 main;
+    private Docomat main;
     @FXML private ListView<String> listView;
 
     public void setupStage(Stage stage) {
@@ -32,39 +34,29 @@ public class WelcomeController implements Initializable {
         listView.setCellFactory(TextFieldListCell.forListView());
     }
 
-    public void showNewTxt() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/v_texte/create_texte.fxml"));
+    public void showOpenDoc() throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisissez où ranger votre document");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        path = new java.io.File(String.valueOf(fileChooser.showOpenDialog(stage))).getPath();
+        showDocomat();
+    }
+
+    public void showDocomat() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/docomat2.fxml"));
         Parent pageCreateTxt = loader.load();
         if(main != null ){
             main.getControlGroup().setLoader(loader);
             main.getControlGroup().setStage(stage);
-            main.getControlGroup().setStageCreateTxtController();
-            main.getControlGroup().getCreateTxtController().setMain(main);
+            main.getControlGroup().setDocomatController();
+            main.getControlGroup().getDocomatController().setMain(main);
         }
         stage.setScene(new Scene(pageCreateTxt));
         stage.setMaximized(true);
         stage.show();
     }
 
-    public void showNewDoc() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/v_document/new_document.fxml"));
-        Parent pageCreateDoc = loader.load();
-        if(main != null ){
-            main.getControlGroup().setLoader(loader);
-            main.getControlGroup().setStage(stage);
-            main.getControlGroup().setStageCreateDocController();
-            main.getControlGroup().getCreateDocController().setMain(main);
-        }
-        stage.setScene(new Scene(pageCreateDoc, 800, 500));
-        stage.show();
-    }
-
-    public void showOpenDoc() {
-        System.out.println("ouverture d'un document");
-    }
-
-
-    public void setMain(Main2 main) {
+    public void setMain(Docomat main) {
         ObservableList<String> noms;
         this.main = main;
         noms = FXCollections.observableArrayList();
@@ -72,4 +64,5 @@ public class WelcomeController implements Initializable {
         listView.setItems(noms);
     }
 
+    public String getPath(){ return path; }
 }

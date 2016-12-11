@@ -16,9 +16,9 @@ import java.util.List;
 
 public class DocumentsDAO implements DAO<Documents> {
 
-    private static final String SQL_INSERT = "INSERT INTO Documents VALUES(null,?,?,?,?,?)";
+    private static final String SQL_INSERT = "INSERT INTO Documents VALUES(null,?,?,?)";
     private static final String SQL_DELETE = "DELETE FROM Documents WHERE id_Document = ?";
-    private static final String SQL_UPDATE = "UPDATE Documents SET nom_document = ?,sous_titre = ?,date_modif = ? WHERE id_Document = ?";
+    private static final String SQL_UPDATE = "UPDATE Documents SET nom_document = ?,date_modif = ? WHERE id_Document = ?";
     private static final String SQL_READ = "SELECT * FROM Documents WHERE id_Document = ?";
     private static final String SQL_READALL = "SELECT * FROM Documents";
 
@@ -34,11 +34,9 @@ public class DocumentsDAO implements DAO<Documents> {
         try {
             ps = conn.prepareStatement(SQL_INSERT);
             ps.setString(1,obj.getNom());
-            ps.setString(2,obj.getSous_titre());
-            ps.setString(3,obj.getDateCreation());
-            if (obj.getDateModif().isEmpty()) ps.setString(4,obj.getDateCreation());
-            else ps.setString(4,obj.getDateModif());
-            ps.setString(5,obj.getContenu());
+            ps.setString(2,obj.getDateCreation());
+            if (obj.getDateModif().isEmpty()) ps.setString(3,obj.getDateCreation());
+            else ps.setString(3,obj.getDateModif());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -63,7 +61,6 @@ public class DocumentsDAO implements DAO<Documents> {
         try {
             ps = conn.prepareStatement(SQL_UPDATE);
             ps.setString(1,obj.getNom());
-            ps.setString(2,obj.getSous_titre());
             ps.setString(3,obj.getDateModif());
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -102,7 +99,7 @@ public class DocumentsDAO implements DAO<Documents> {
         try {
             ps = conn.prepareStatement(SQL_READALL);
             res = ps.executeQuery();
-            while (res.next()) documentsList.add(new Documents(res.getInt(1),res.getString(2),res.getString(3),res.getString(4),res.getString(5)));
+            while (res.next()) documentsList.add(new Documents(res.getInt(1),res.getString(2),res.getString(3),res.getString(4)));
 
             ps.executeQuery();
         } catch (SQLException e) {
